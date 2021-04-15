@@ -1,0 +1,10 @@
+﻿@model SelectedSectionViewModel
+
+<div class="text-center">
+    <h1 class="display-4">@Model.Section.Name</h1>
+</div>
+@if (Model.Section.Discriminator == "QSection")
+{
+    @await Html.PartialAsync("Variants", Model.Variants)
+}
+@await Html.PartialAsync("MessagesList", Model)

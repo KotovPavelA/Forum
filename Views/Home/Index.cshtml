@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model SectionsListViewModel
+
+<div class="text-center" >
+    <h2>Развлекательный Форум</h2>
+</div>
+<div class="text-left">
+    @await Html.PartialAsync("SectionsList", Model)
+</div>
+
+

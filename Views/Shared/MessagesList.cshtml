@@ -1,0 +1,37 @@
+﻿@model SelectedSectionViewModel
+
+
+@if (Model.Section.Messages.Count > 0)
+{
+    <div class="list-group">
+        <a class="list-group-item list-group-item-action">
+            <p><mark>Последнее сообщение</mark></p>
+            <blockquote class="blockquote">
+                <p class="mb-0">@Model.Section.Messages[0].Text</p>
+                <footer class="blockquote-footer">@Model.Section.Messages[0].User.Nickname</footer>
+            </blockquote>
+        </a>
+        @for (int i = 1; i < Model.Section.Messages.Count; i++)
+        {
+            <blockquote class="blockquote">
+                <p class="mb-0">@Model.Section.Messages[i].Text</p>
+                <footer class="blockquote-footer">@Model.Section.Messages[i].User.Nickname</footer>
+            </blockquote>
+        }
+    </div>
+}
+else
+{
+        <p><mark>В этой теме пока нет сообщений</mark></p>
+        <button type="button" class="btn btn-primary">Начать обсуждение</button>
+
+}
+
+
+
+
+
+
+
+
+

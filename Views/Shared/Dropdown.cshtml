@@ -1,0 +1,12 @@
+﻿@model List<QSectionAnswer>
+<div class="btn-group">
+    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Genres
+    </button>
+    <div class="dropdown-menu">
+        @foreach (var item in Model)
+        {
+            <a class="dropdown-item" asp-controller="Film" asp-action="ListGenre" asp-route-genre="@item.Name">@item.Name</a>
+        }
+    </div>
+</div>

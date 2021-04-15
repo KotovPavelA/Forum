@@ -1,0 +1,7 @@
+﻿@model List<QSectionAnswer>
+
+    @foreach (QSectionAnswer item in Model)
+    {
+        <p align="left">Голосов за вариант "@item.Name" - @item.VolumeOfVote</p>
+    }
+

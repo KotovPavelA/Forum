@@ -119,6 +119,9 @@ namespace Forum.Migrations
                     b.Property<DateTime?>("DateOfBan")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsBanned")
                         .HasColumnType("bit");
 

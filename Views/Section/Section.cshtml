@@ -5,6 +5,7 @@
 </div>
 @if (Model.Section.Discriminator == "QSection")
 {
-    @await Html.PartialAsync("Variants", Model.Variants)
+    @await Html.PartialAsync("VariantsInfo", Model.Variants)
+    @await Html.PartialAsync("Dropdown", Model.Variants)
 }
 @await Html.PartialAsync("MessagesList", Model)

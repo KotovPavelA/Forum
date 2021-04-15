@@ -34,12 +34,12 @@ namespace Forum.Controllers
             }
             return View(model);
         }
-        [HttpPost]
-        public IActionResult Section(int id)
-        {
+        //[HttpPost]
+        //public IActionResult Section(int id)
+        //{
             
-            return View();
-        }
+        //    return View();
+        //}
 
 
     }

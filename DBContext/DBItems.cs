@@ -28,6 +28,7 @@ namespace Forum.DBContext
                 Name = "Adam",
                 SecondName = "Sendler",
                 Nickname = "AdminSendler",
+                Email = "AdamS@mail.ru",
                 Password = "Yap_Admin25",
                 Role = adminRole,
                 IsBanned = false
@@ -38,6 +39,7 @@ namespace Forum.DBContext
                 Name = "Veronica",
                 SecondName = "Thomas",
                 Nickname = "VThomas11",
+                Email = "ThomVer@mail.ru",
                 Password = "25.July",
                 Role = moderRole,
                 IsBanned = false
@@ -47,14 +49,15 @@ namespace Forum.DBContext
                 Name = "Garry",
                 SecondName = "Axe",
                 Nickname = "x_AXE7AXE_x",
+                Email = "love.mom88@mail.ru",
                 Password = "love.mom888",
                 Role = userRole,
                 IsBanned = false
             };
 
-            Section section  = new Section(){Name = "Природа"};
-            Section msection = new Section() { Name = "Самые интересные фильмы" };
-            QSection qsection = new QSection() { Name = "Тату. За или против?" };
+            Section section  = new Section(){Name = "Природа", Creater = adam};
+            Section msection = new Section() { Name = "Самые интересные фильмы", Creater = veronica, CreaterId = veronica.Id };
+            QSection qsection = new QSection() { Name = "Тату. За или против?", Creater = garry, CreaterId = garry.Id };
 
 
             if (!context.Roles.Any())
@@ -91,6 +94,7 @@ namespace Forum.DBContext
                         User = adam,
                         Text = "Люблю животных",
                         Section = section,
+                        Likes = 2,
                         Date = DateTime.Now,
                     },
                     new Message()
@@ -98,6 +102,7 @@ namespace Forum.DBContext
                         User = veronica,
                         Text = "Посмотрите старое кино",
                         Section = msection,
+                        Likes = 2,
                         Date = DateTime.Now
                     },
                     new Message()
@@ -105,6 +110,7 @@ namespace Forum.DBContext
                         User = garry,
                         Text = "На зоне по другому никак, ауф",
                         Section = qsection,
+                        Likes = 0,
                         Date = DateTime.Now
                     }
                     );

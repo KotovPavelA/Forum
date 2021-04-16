@@ -23,6 +23,8 @@ namespace Forum.Models
         [NotMapped]
         public string ConfirmPassword { get; set; }
 
+        public List<Section> SectionsCreated { get; set; }
+
         public int? RoleId { get; set; }
         public Role Role { get; set; }
 

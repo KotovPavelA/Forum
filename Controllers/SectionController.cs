@@ -1,6 +1,7 @@
 ﻿using Forum.Interfaces;
 using Forum.Models;
 using Forum.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,13 @@ namespace Forum.Controllers
     public class SectionController : Controller
     {
         private readonly IAllSections allSections;
-        public SectionController(IAllSections _allSections)
+        private readonly IAnswer allAnswers;
+        private readonly IUsers allUsers;
+        public SectionController(IAllSections _allSections, IAnswer _answer)
         {
             allSections = _allSections;
+            allAnswers = _answer;
         }
-        [HttpGet]
         public IActionResult Section(int id)
         {
             var s = allSections.FindSectionById(id);
@@ -34,12 +37,44 @@ namespace Forum.Controllers
             }
             return View(model);
         }
-        //[HttpPost]
-        //public IActionResult Section(int id)
-        //{
-            
-        //    return View();
-        //}
+
+
+        [Authorize]
+        public IActionResult RecordAnswer(int id)
+        {
+            int SectionId = allAnswers.AddVoteToAnswer(id);
+
+            return Redirect($"~/Section/Section/{SectionId}");
+        }
+        [Authorize]
+        public IActionResult Create(string type)
+        {
+            switch (type)
+            {
+                case "QSection":
+                    return Redirect("~/Section/CreateQSection");
+                case "Section":
+                    return Redirect("~/Section/CreateSection");
+                default:
+                    return Redirect("~/Home/Index");
+            }
+        }
+        [HttpGet]
+        public IActionResult CreateSection()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateSection(string text)
+        {
+            var c = int.Parse(User.Identity.Name);
+            Section section = allSections.CreateSection(text,c);
+            return Redirect($"~/Section/Section/{section.Id}");
+        }
+
+
+
+        //[Authorize(Roles = "Admin, Moderator")]
 
 
     }

@@ -1,4 +1,5 @@
 ﻿using Forum.DBContext;
+using Forum.Interfaces;
 using Forum.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -14,10 +15,17 @@ namespace Forum.Controllers
 {
     public class AccountController : Controller
     {
-        private ApplicationContext _context;
-        public AccountController(ApplicationContext context)
+        private readonly ApplicationContext _context;
+        private readonly IUsers allUsers;
+        public AccountController(ApplicationContext context, IUsers _users)
         {
             _context = context;
+            allUsers = _users;
+        }
+        public IActionResult UserPage(int id)
+        {
+            User user = allUsers.FindUserById(id);
+            return View(user);
         }
         [HttpGet]
         public IActionResult Register()
@@ -68,22 +76,31 @@ namespace Forum.Controllers
                 {
                     await Authenticate(user); // аутентификация
 
+
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                ViewBag.User = user.Name + " " + user.SecondName;
             }
+            
             return View(model);
         }
         private async Task Authenticate(User user)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Id.ToString()),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)
             };
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
+            ClaimsIdentity id = new ClaimsIdentity(claims, "Forum", ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
+        //private async Task CreateCookie(User user)
+        //{
+        //    Cookie cookie = Request.Cookies.Get("DateCookieExample");
+
+        //    HttpContext.Response.Cookies.Append()
+        //}
     }
 }

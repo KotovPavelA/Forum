@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Forum.Models.ViewModel
+{
+    public class UserViewModel
+    {
+        public List<User> Users;
+        public List<Role> Roles;
+    }
+}

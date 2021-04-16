@@ -5,14 +5,26 @@
     {
         if (i % 2 == 0)
         {
-            <a class="list-group-item list-group-item-primary" asp-controller="Section" asp-action="Section" asp-route-id="@Model.Sections[i].Id">@Model.Sections[i].Name</a> 
+            <a class="list-group-item list-group-item-primary" asp-controller="Section" asp-action="Section" asp-route-id="@Model.Sections[i].Id">@Model.Sections[i].Name</a>
+
         }
         else
         {
             <a class="list-group-item list-group-item-action" asp-controller="Section" asp-action="Section" asp-route-id="@Model.Sections[i].Id">@Model.Sections[i].Name</a>
         }
-
+        <blockquote class="blockquote">
+            <a asp-controller="Account" asp-action="UserPage" asp-route-id="@Model.Sections[i].CreaterId"><footer class="blockquote-footer">@Model.Sections[i].Creater.Nickname</footer></a>
+        </blockquote>
     }
+<div class="btn-group">
+    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Создать обсуждение
+    </button>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" asp-controller="Section" asp-action="Create" asp-route-type="QSection">Создать опросник</a>
+        <a class="dropdown-item" asp-controller="Section" asp-action="Create" asp-route-type="Section">Создать простое обсуждение</a>
+    </div>
+</div>
 
 
 

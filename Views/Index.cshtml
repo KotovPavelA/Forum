@@ -1,0 +1,16 @@
+﻿<h1>Функционал администратора</h1>
+@model AdminViewModel
+
+<a asp-controller="Admin" asp-action="DeleteSection" asp-route-section="">Удалить раздел</a>
+<a asp-controller="Admin" asp-action="EditSection" asp-route-section="">Редактировать раздел</a>
+
+<a asp-controller="Admin" asp-action="DeleteUser" asp-route-user="">Удалить пользователя</a>
+<a asp-controller="Admin" asp-action="UpdateUserRole" asp-route-user="">Редактировать роль пользователя</a>
+
+<a asp-controller="Admin" asp-action="BanUser" asp-route-user="">Забанить пользователя</a>
+
+<a asp-controller="Admin" asp-action="DeleteMessage" asp-route-message="">Удалить сообщение</a>
+<a asp-controller="Admin" asp-action="EditMessage" asp-route-message="" asp-route-text="">Редактировать сообщение</a>
+
+
+

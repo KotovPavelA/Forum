@@ -1,0 +1,31 @@
+﻿@model UserViewModel
+
+    <div class="list-group">
+        @for (int i = 0; i < Model.Users.Count; i++)
+        {
+        <form method="post">
+            <hr />
+            <p>
+                <button type="button" class="btn btn-outline-warning">
+                    @Model.Users[i].Name - @Model.Users[i].Role.Name
+                </button>
+                
+                <select name="roleId">
+                    @foreach (Role item in Model.Roles)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+                <button class="btn btn-outline-primary"
+                        asp-action="UpdateUserRole" asp-controller="Admin" asp-route-userId="@Model.Users[i].Id">
+                    Подтвердить
+
+                </button>
+            </p>
+            <hr />
+        </form>
+        }
+    </div>
+
+
+

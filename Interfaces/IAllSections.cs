@@ -8,6 +8,8 @@ namespace Forum.Interfaces
 {
     public interface IAllSections
     {
+        Section CreateSection(string Name, int UserId);
+        QSection CreateQSection(string Name, int UserId);
         IEnumerable<Section> GetAllSectionsForList { get; }
         IEnumerable<QSection> GetGetQSections();
         Section FindSectionById(int i);

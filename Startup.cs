@@ -29,6 +29,10 @@ namespace Forum
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IAllSections, SectionsRepository>();
+            services.AddTransient<IAnswer, AnswerRepository>();
+            services.AddTransient<IUsers, UserRepository>();
+            services.AddTransient<IAllMessages, MessagesRepository>();
+            services.AddTransient<IAdmin, AdminRepository>();
             services.AddDbContext<ApplicationContext>(options =>
                                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
@@ -59,6 +63,7 @@ namespace Forum
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -3,22 +3,36 @@
 
 @if (Model.Section.Messages.Count > 0)
 {
-    <div class="list-group">
-        <a class="list-group-item list-group-item-action">
-            <p><mark>Последнее сообщение</mark></p>
-            <blockquote class="blockquote">
-                <p class="mb-0">@Model.Section.Messages[0].Text</p>
-                <footer class="blockquote-footer">@Model.Section.Messages[0].User.Nickname</footer>
-            </blockquote>
-        </a>
-        @for (int i = 1; i < Model.Section.Messages.Count; i++)
-        {
-            <blockquote class="blockquote">
-                <p class="mb-0">@Model.Section.Messages[i].Text</p>
-                <footer class="blockquote-footer">@Model.Section.Messages[i].User.Nickname</footer>
-            </blockquote>
-        }
-    </div>
+<div class="list-group">
+    <a class="list-group-item list-group-item-action">
+        <p><mark>Последнее сообщение</mark></p>
+        <blockquote class="blockquote">
+            <p class="mb-0">@Model.Section.Messages[0].Text</p>
+            <footer class="blockquote-footer">@Model.Section.Messages[0].User.Nickname</footer>
+            <p align="right">@Model.Section.Messages[0].Date</p>
+        </blockquote>
+    </a>
+    <a asp-controller="Message" asp-action="Like" asp-route-id="@Model.Section.Messages[0].Id">
+        <p align="right">
+            Понравилось: @Model.Section.Messages[0].Likes
+        </p>
+    </a>
+
+    @for (int i = 1; i < Model.Section.Messages.Count; i++)
+    {
+        <blockquote class="blockquote">
+            <p class="mb-0">@Model.Section.Messages[i].Text</p>
+            <footer class="blockquote-footer">@Model.Section.Messages[i].User.Nickname</footer>
+            <p align="right">@Model.Section.Messages[i].Date</p>
+            <a asp-controller="Message" asp-action="Like" asp-route-id="@Model.Section.Messages[i].Id">
+                <p align="right">
+                    Понравилось: @Model.Section.Messages[i].Likes
+                </p>
+            </a>
+        </blockquote>
+
+    }
+</div>
 }
 else
 {

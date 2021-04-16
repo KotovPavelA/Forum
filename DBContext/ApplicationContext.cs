@@ -30,12 +30,21 @@ namespace Forum.DBContext
                     .WithMany(s => s.Messages).HasForeignKey(i=>i.SectionId);
 
             modelBuilder.Entity<User>()
+                    .HasMany(m => m.Messages)
+                    .WithOne(u => u.User).HasForeignKey(i => i.UserId);
+
+            modelBuilder.Entity<User>()
                     .HasOne(c => c.Role)
                     .WithMany(s => s.Users).HasForeignKey(i => i.RoleId);
 
             modelBuilder.Entity<QSection>()
                 .HasMany(v => v.Variants)
                 .WithOne(c => c.Section).HasForeignKey(i => i.SectionId);
+
+            modelBuilder.Entity<Section>()
+                .HasOne(c => c.Creater)
+                .WithMany(s => s.SectionsCreated).HasForeignKey(i => i.CreaterId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

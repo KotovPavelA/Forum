@@ -3,9 +3,25 @@
 <div class="text-center">
     <h1 class="display-4">@Model.Section.Name</h1>
 </div>
+
+<form asp-action = "CreateMessage" asp-controller="Message" asp-route-id="@Model.Section.Id">
+    <div class="input-group mb-3">
+        <input name ="text" type="text" class="form-control" placeholder="Введите текст сообщения" aria-describedby="basic-addon2">
+
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary">
+                Отправить
+            </button>
+        </div>
+    </div>
+</form>
+
+
 @if (Model.Section.Discriminator == "QSection")
 {
     @await Html.PartialAsync("VariantsInfo", Model.Variants)
     @await Html.PartialAsync("Dropdown", Model.Variants)
 }
 @await Html.PartialAsync("MessagesList", Model)
+
+

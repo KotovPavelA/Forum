@@ -8,6 +8,9 @@ namespace Forum.Interfaces
 {
     public interface IAllMessages
     {
-        public Message LastMessage(Section section);
+        public Message CreateMessage(User user,Section section, string text);
+        public Message FindMessageById(int id);
+        public Message Like(int id);
+        public List<Message> GetAllMessages();
     }
 }

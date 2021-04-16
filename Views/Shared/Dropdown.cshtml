@@ -1,12 +1,24 @@
 ﻿@model List<QSectionAnswer>
 <div class="btn-group">
     <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Genres
+        Варианты ответа
     </button>
     <div class="dropdown-menu">
         @foreach (var item in Model)
         {
-            <a class="dropdown-item" asp-controller="Film" asp-action="ListGenre" asp-route-genre="@item.Name">@item.Name</a>
+            <a class="dropdown-item" asp-controller="Section" asp-action="RecordAnswer" asp-route-id="@item.Id">@item.Name</a>
         }
     </div>
 </div>
+
+@*<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Options</label>
+    </div>
+    <select class="custom-select" id="inputGroupSelect01">
+        <option selected>Choose...</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+    </select>
+</div>*@

@@ -1,0 +1,21 @@
+﻿@model User
+
+<h1>Профиль пользователя @Model.Nickname</h1>
+<p><ins>Имя: @Model.Name</ins></p>
+<p><ins>Фамилия: @Model.SecondName</ins></p>
+
+<p><ins><mark>Последнее сообщение</mark></ins></p>
+<hr />
+<blockquote class="blockquote">
+    <p class="mb-0">@Model.Messages[0].Text</p>
+    <p align="right">@Model.Messages[0].Date</p>
+    <footer class="blockquote-footer">
+        <a asp-controller="Section" asp-action="Section" asp-route-id="@Model.Messages[0].SectionId">
+            @Model.Messages[0].Section.Name
+        </a>
+    </footer>
+</blockquote>
+<hr />
+
+
+

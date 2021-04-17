@@ -14,7 +14,7 @@ namespace Forum.Models
         public int SectionId { get; set; }
         public Section Section { get; set; }
 
-        public int Likes { get; set; }
+        public Like Likes { get; set; }
         public string Text { get; set; }
         public string Attachment { get; set; }
 

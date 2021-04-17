@@ -94,7 +94,10 @@ namespace Forum.DBContext
                         User = adam,
                         Text = "Люблю животных",
                         Section = section,
-                        Likes = 2,
+                        Likes = new Like() 
+                        { 
+                            Users = new List<User>() { adam, veronica },
+                        },
                         Date = DateTime.Now,
                     },
                     new Message()
@@ -102,7 +105,10 @@ namespace Forum.DBContext
                         User = veronica,
                         Text = "Посмотрите старое кино",
                         Section = msection,
-                        Likes = 2,
+                        Likes = new Like()
+                        {
+                            Users = new List<User>() { adam, veronica },
+                        },
                         Date = DateTime.Now
                     },
                     new Message()
@@ -110,7 +116,6 @@ namespace Forum.DBContext
                         User = garry,
                         Text = "На зоне по другому никак, ауф",
                         Section = qsection,
-                        Likes = 0,
                         Date = DateTime.Now
                     }
                     );

@@ -35,7 +35,7 @@ namespace Forum.Controllers
         }
         public IActionResult Like(int id)
         {
-            Message message = allMessages.Like(id);
+            Message message = allMessages.Like(id, int.Parse(User.Identity.Name));
             return Redirect($"~/Section/Section/{message.SectionId}");
         }
     }

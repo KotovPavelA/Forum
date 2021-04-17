@@ -45,6 +45,7 @@ namespace Forum.DBContext
                 .HasOne(c => c.Creater)
                 .WithMany(s => s.SectionsCreated).HasForeignKey(i => i.CreaterId)
                 .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

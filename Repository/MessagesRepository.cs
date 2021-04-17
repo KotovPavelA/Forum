@@ -13,9 +13,11 @@ namespace Forum.Repository
     {
         //Методы для получения сообщений 
         private readonly ApplicationContext context;
-        public MessagesRepository(ApplicationContext _context)
+        private readonly IUsers allUsers;
+        public MessagesRepository(ApplicationContext _context, IUsers _users)
         {
             context = _context;
+            allUsers = _users;
         }
 
         public Message CreateMessage(User _user,Section section, string _text)
@@ -25,7 +27,6 @@ namespace Forum.Repository
                 User = _user,
                 Text = _text,
                 Date = DateTime.Now,
-                Likes = 0,
                 Section = section,
                 SectionId = section.Id
             };
@@ -35,11 +36,16 @@ namespace Forum.Repository
             return message;
         }
 
-        public Message Like(int id)
+        public Message Like(int id, int userId)
         {
             Message message = FindMessageById(id);
-            message.Likes++;
-            context.SaveChanges();
+            User thisUser = allUsers.FindUserById(userId);
+
+            if(message.Likes.Users.IndexOf(thisUser) == -1)
+            {
+                message.Likes.Users.Add(thisUser);
+                context.SaveChanges();
+            }
             return message;
         }
 

@@ -1,0 +1,33 @@
+﻿@model ChapterViewModel
+
+@foreach (Chapter item in Model.Chapters)
+{
+
+    <h1>@item.Name</h1>
+    @await Html.PartialAsync("SectionsList", item.Sections);
+    <div class="btn-group">
+        <button type="button" class="btn btn-danger dropdown-toggle" 
+                data-toggle="dropdown" aria-haspopup="true" 
+                aria-expanded="false">
+            Создать обсуждение в этом разделе
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" 
+               asp-controller="Section" 
+               asp-action="Create" 
+               asp-route-type="QSection"
+               asp-route-id="@item.Id">
+
+                Создать опросник
+            </a>
+            <a class="dropdown-item"
+               asp-controller="Section" 
+               asp-action="Create" 
+               asp-route-type="Section" 
+               asp-route-id="@item.Id">
+
+                Создать простое обсуждение
+            </a>
+        </div>
+    </div>
+}

@@ -28,9 +28,17 @@ namespace Forum.Repository
             context.SaveChanges();
             return user;
         }
-        public User Ban(User user)//Забанить пользователя
+        public User Ban(int userId)//Забанить пользователя
         {
+            User user = allUsers.FindUserById(userId);
             user.IsBanned = true;
+            context.SaveChanges();
+            return user;
+        }
+        public User Unban(int userId)//Забанить пользователя
+        {
+            User user = allUsers.FindUserById(userId);
+            user.IsBanned = false;
             context.SaveChanges();
             return user;
         }

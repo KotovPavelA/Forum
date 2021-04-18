@@ -33,6 +33,7 @@ namespace Forum
             services.AddTransient<IUsers, UserRepository>();
             services.AddTransient<IAllMessages, MessagesRepository>();
             services.AddTransient<IAdmin, AdminRepository>();
+            services.AddTransient<IChapter, ChaptersRepository>();
             services.AddDbContext<ApplicationContext>(options =>
                                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();

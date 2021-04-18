@@ -1,0 +1,18 @@
+﻿@model Message
+
+<blockquote class="blockquote">
+    <p class="mb-0">@Model.Text</p>
+    <footer class="blockquote-footer">@Model.User.Nickname</footer>
+    <p align="right">@Model.Date</p>
+</blockquote>
+<form method="post" asp-controller="Admin" asp-action="EditMessage" asp-route-id ="@Model.Id">
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <a >
+                <span class="input-group-text">With textarea</span>
+            </a>
+        </div>
+        <textarea name="text" class="form-control" aria-label="With textarea" placeholder="@Model.Text">
+</textarea>
+    </div>
+</form>

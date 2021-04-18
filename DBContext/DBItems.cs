@@ -58,11 +58,18 @@ namespace Forum.DBContext
                 IsBanned = false
             };
 
+            
+
             Section section  = new Section(){Name = "Природа", Creater = adam};
             Section msection = new Section() { Name = "Самые интересные фильмы", Creater = veronica, CreaterId = veronica.Id };
             QSection qsection = new QSection() { Name = "Тату. За или против?", Creater = garry, CreaterId = garry.Id };
 
+            Chapter chapter = new Chapter() { Name = "Природа", Sections = new List<Section>() { section, msection } };
+            Chapter chapter1 = new Chapter() { Name = "Тату", Sections = new List<Section>() { qsection } };
 
+
+            if (!context.Chapters.Any())
+                context.Chapters.AddRange(chapter,chapter1);
             if (!context.Roles.Any())
                 context.Roles.AddRange(adminRole, moderRole, userRole);
 

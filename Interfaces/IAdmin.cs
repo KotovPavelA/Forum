@@ -9,7 +9,8 @@ namespace Forum.Interfaces
     public interface IAdmin
     {
         User UpdateRole(int userId, int roleId);
-        User Ban(User user);
+        User Ban(int userId);
+        User Unban(int userId);
 
         bool DeleteSection(Section section); //Два одинаковых метода но для разных типов разделов форума
         bool DeleteSection(QSection section);

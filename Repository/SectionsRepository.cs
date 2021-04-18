@@ -13,12 +13,14 @@ namespace Forum.Repository
     {
         //Методы для получения разделов форума
         private readonly IUsers allUsers;
+        private readonly IChapter allChapters;
 
         private readonly ApplicationContext context;
-        public SectionsRepository(ApplicationContext _context, IUsers _users)
+        public SectionsRepository(ApplicationContext _context, IUsers _users, IChapter chapter)
         {
             context = _context;
             allUsers = _users;
+            allChapters = chapter;
 
         }
         public IEnumerable<Section> GetAllSectionsForList => context.Sections.Include(u => u.Creater);
@@ -61,13 +63,15 @@ namespace Forum.Repository
 
         }
 
-        public Section CreateSection(string _Name, int UserId)
+        public Section CreateSection(int id,string Name, int UserId)
         {
+            Chapter chapter = allChapters.FindChapterById(id);
             User user = allUsers.FindUserById(UserId);
             Section section = new Section()
             {
-                Name = _Name,
-                Creater = user
+                Name = Name,
+                Creater = user,
+                Chapter = chapter
             };
             context.Sections.Add(section);
             context.SaveChanges();
@@ -75,9 +79,19 @@ namespace Forum.Repository
         }
 
 
-        public QSection CreateQSection(string Name, int UserId)
+        public QSection CreateQSection(int id, string Name, int UserId)
         {
-            throw new NotImplementedException();
+            Chapter chapter = allChapters.FindChapterById(id);
+            User user = allUsers.FindUserById(UserId);
+            QSection qsection = new QSection()
+            {
+                Name = Name,
+                Creater = user,
+                Chapter = chapter
+            };
+            context.QSections.Add(qsection);
+            context.SaveChanges();
+            return qsection;
         }
     }
 }

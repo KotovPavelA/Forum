@@ -2,6 +2,9 @@
 
 <div class="text-center">
     <h1 class="display-4">@Model.Section.Name</h1>
+    <blockquote class="blockquote">
+        <a asp-controller="Account" asp-action="UserPage" asp-route-id="@Model.Section.CreaterId"><footer class="blockquote-footer">@Model.Section.Creater.Nickname</footer></a>
+    </blockquote>
 </div>
 
 <form asp-action = "CreateMessage" asp-controller="Message" asp-route-id="@Model.Section.Id">

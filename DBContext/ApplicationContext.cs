@@ -14,6 +14,7 @@ namespace Forum.DBContext
         public DbSet<Role> Roles { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Like> Likes { get; set; }
+        public DbSet<Chapter> Chapters {get;set;}
         public DbSet<Section> Sections { get; set; }
         public DbSet<QSection> QSections { get; set; }
         public DbSet<QSectionAnswer> QSectionAnswers { get; set; }

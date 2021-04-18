@@ -9,7 +9,6 @@
                 <button type="button" class="btn btn-outline-warning">
                     @Model.Users[i].Name - @Model.Users[i].Role.Name
                 </button>
-                
                 <select name="roleId">
                     @foreach (Role item in Model.Roles)
                     {
@@ -18,9 +17,32 @@
                 </select>
                 <button align="right" class="btn btn-outline-primary"
                         asp-action="UpdateUserRole" asp-controller="Admin" asp-route-userId="@Model.Users[i].Id">
-                    Подтвердить
+                    Подтвердить изменение роли
 
                 </button>
+                @if (Model.Users[i].IsBanned)
+                {
+                    <font color="red">
+                        <i><mark>Забанен</mark></i>
+                    </font>
+                    <button align="right" class="btn btn-outline-primary"
+                            asp-action="Unban" asp-controller="Admin" asp-route-id="@Model.Users[i].Id">
+                        Разбанить пользователя
+
+                    </button>
+                }
+                else
+                {
+                    <font color="green">
+                        <i><mark>Не забанен</mark></i>
+                    </font>
+                    <button align="right" class="btn btn-outline-primary"
+                            asp-action="Ban" asp-controller="Admin" asp-route-id="@Model.Users[i].Id">
+                        Забанить пользователя
+
+                    </button>
+                }
+
             </p>
             <hr />
         </form>

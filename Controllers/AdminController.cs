@@ -45,10 +45,15 @@ namespace Forum.Controllers
             return Redirect("~/Admin/Index");
         }
 
-        public IActionResult Ban(User user)
+        public IActionResult Ban(int id)
         {
-            adminFunc.Ban(user);
-            return Redirect("~/Admin/Index");
+            adminFunc.Ban(id);
+            return Redirect("~/Admin/UpdateUserRole");
+        }
+        public IActionResult Unban(int id)
+        {
+            adminFunc.Unban(id);
+            return Redirect("~/Admin/UpdateUserRole");
         }
 
 
@@ -70,8 +75,7 @@ namespace Forum.Controllers
             return Redirect("~/Admin/UpdateUserRole");
         }
 
-        [HttpGet]
-        public IActionResult DeleteMessage()
+        public IActionResult EditDeleteMessage()
         {
 
             MessagesViewModel model = new MessagesViewModel()
@@ -80,16 +84,23 @@ namespace Forum.Controllers
             };
             return View(model);
         }
-        [HttpPost]
         public IActionResult DeleteMessage(int messageId)
         {
             adminFunc.DeleteMessage(messageId);
-            return Redirect("~/Admin/DeleteMessage");
+            return Redirect("~/Admin/EditDeleteMessage");
         }
-        public IActionResult EditMessage(Message message, string text)
+        [HttpGet]
+        public IActionResult EditMessage(int id)
         {
+            var message = allMessages.FindMessageById(id);
+            return View(message);
+        }
+        [HttpPost]
+        public IActionResult EditMessage(int id, string text)
+        {
+            var message = allMessages.FindMessageById(id);
             adminFunc.EditMessage(message, text);
-            return Redirect("~/Admin/EditMessage");
+            return Redirect("~/Admin/EditDeleteMessage");
         }
     }
 }

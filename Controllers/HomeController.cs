@@ -26,11 +26,7 @@ namespace Forum.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var a = new SectionsListViewModel()
-            {
-                Sections = allSections.GetAllSectionsForList.ToList()
-            };
-            return View(a);
+            return Redirect("~/Chapter/Index");
         }
 
         public IActionResult Privacy()

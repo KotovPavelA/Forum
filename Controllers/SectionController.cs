@@ -46,28 +46,43 @@ namespace Forum.Controllers
             return Redirect($"~/Section/Section/{SectionId}");
         }
         [Authorize]
-        public IActionResult Create(string type)
+        public IActionResult Create(string type, int id)
         {
             switch (type)
             {
                 case "QSection":
-                    return Redirect("~/Section/CreateQSection");
+                    return RedirectToAction("CreateQSection", "Section", new { id = id });
                 case "Section":
-                    return Redirect("~/Section/CreateSection");
+                    return RedirectToAction("CreateSection", "Section", new { id = id });
                 default:
                     return Redirect("~/Home/Index");
             }
         }
         [HttpGet]
-        public IActionResult CreateSection()
+        public IActionResult CreateSection(int id)
         {
-            return View();
+
+            return View(id);
         }
         [HttpPost]
-        public IActionResult CreateSection(string text)
+        public IActionResult CreateSection(int id,string text)
         {
-            var c = int.Parse(User.Identity.Name);
-            Section section = allSections.CreateSection(text,c);
+            var user = int.Parse(User.Identity.Name);
+            Section section = allSections.CreateSection(id,text,user);
+            return Redirect($"~/Section/Section/{section.Id}");
+        }
+
+        [HttpGet]
+        public IActionResult CreateQSection(int id)
+        {
+
+            return View(id);
+        }
+        [HttpPost]
+        public IActionResult CreateQSection(int id, string text)
+        {
+            var user = int.Parse(User.Identity.Name);
+            QSection section = allSections.CreateQSection(id, text, user);
             return Redirect($"~/Section/Section/{section.Id}");
         }
 

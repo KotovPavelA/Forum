@@ -13,6 +13,8 @@ namespace Forum.Models
         public int CreaterId { get; set; }
         public User Creater { get; set; }
         public List<Message> Messages { get; set; }
+        public int ChapterId { get; set; }
+        public Chapter Chapter { get; set; }
         public string Discriminator { get; set; }
 
     }

@@ -10,7 +10,10 @@ namespace Forum.Interfaces
     {
         public Message CreateMessage(User user,Section section, string text);
         public Message FindMessageById(int id);
-        public Message Like(int id, int userId);
+        public Message Like(int id, int userId); //Добавляет пользователя в список лайкнувших сообщение
+
+        //Возвращает true, если пользователь уже поставил лайк под этим сообщением
+        public bool FindUserLike(Message message, User user); 
         public List<Message> GetAllMessages();
     }
 }

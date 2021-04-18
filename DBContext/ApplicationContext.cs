@@ -13,6 +13,7 @@ namespace Forum.DBContext
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Like> Likes { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<QSection> QSections { get; set; }
         public DbSet<QSectionAnswer> QSectionAnswers { get; set; }
@@ -45,6 +46,18 @@ namespace Forum.DBContext
                 .HasOne(c => c.Creater)
                 .WithMany(s => s.SectionsCreated).HasForeignKey(i => i.CreaterId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Like>()
+                .HasOne(u => u.User)
+                .WithMany(l => l.Likes).HasForeignKey(i => i.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Like>()
+                .HasOne(m => m.Message)
+                .WithMany(l => l.Likes).HasForeignKey(i => i.MessageId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+
 
         }
     }

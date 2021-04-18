@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Forum.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210417115611_Like")]
-    partial class Like
+    [Migration("20210418124509_Likes")]
+    partial class Likes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,9 +28,19 @@ namespace Forum.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("MessageId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Like");
+                    b.HasIndex("MessageId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("Forum.Models.Message", b =>
@@ -46,9 +56,6 @@ namespace Forum.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("LikesId")
-                        .HasColumnType("int");
-
                     b.Property<int>("SectionId")
                         .HasColumnType("int");
 
@@ -59,8 +66,6 @@ namespace Forum.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LikesId");
 
                     b.HasIndex("SectionId");
 
@@ -140,18 +145,12 @@ namespace Forum.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("DateOfBan")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsBanned")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("LikeId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -174,12 +173,7 @@ namespace Forum.Migrations
                     b.Property<string>("SecondName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("TermOfBanned")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("LikeId");
 
                     b.HasIndex("QSectionId");
 
@@ -195,12 +189,27 @@ namespace Forum.Migrations
                     b.HasDiscriminator().HasValue("QSection");
                 });
 
+            modelBuilder.Entity("Forum.Models.Like", b =>
+                {
+                    b.HasOne("Forum.Models.Message", "Message")
+                        .WithMany("Likes")
+                        .HasForeignKey("MessageId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Forum.Models.User", "User")
+                        .WithMany("Likes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Message");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Forum.Models.Message", b =>
                 {
-                    b.HasOne("Forum.Models.Like", "Likes")
-                        .WithMany()
-                        .HasForeignKey("LikesId");
-
                     b.HasOne("Forum.Models.Section", "Section")
                         .WithMany("Messages")
                         .HasForeignKey("SectionId")
@@ -212,8 +221,6 @@ namespace Forum.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Likes");
 
                     b.Navigation("Section");
 
@@ -244,10 +251,6 @@ namespace Forum.Migrations
 
             modelBuilder.Entity("Forum.Models.User", b =>
                 {
-                    b.HasOne("Forum.Models.Like", null)
-                        .WithMany("Users")
-                        .HasForeignKey("LikeId");
-
                     b.HasOne("Forum.Models.QSection", null)
                         .WithMany("UniqUsers")
                         .HasForeignKey("QSectionId");
@@ -259,9 +262,9 @@ namespace Forum.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("Forum.Models.Like", b =>
+            modelBuilder.Entity("Forum.Models.Message", b =>
                 {
-                    b.Navigation("Users");
+                    b.Navigation("Likes");
                 });
 
             modelBuilder.Entity("Forum.Models.Role", b =>
@@ -276,6 +279,8 @@ namespace Forum.Migrations
 
             modelBuilder.Entity("Forum.Models.User", b =>
                 {
+                    b.Navigation("Likes");
+
                     b.Navigation("Messages");
 
                     b.Navigation("SectionsCreated");

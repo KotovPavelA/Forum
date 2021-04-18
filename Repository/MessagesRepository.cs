@@ -41,22 +41,34 @@ namespace Forum.Repository
             Message message = FindMessageById(id);
             User thisUser = allUsers.FindUserById(userId);
 
-            if(message.Likes.Users.IndexOf(thisUser) == -1)
+
+            if (!FindUserLike(message, thisUser)) //Вернет true, если лайк уже поставлен этим пользователем
             {
-                message.Likes.Users.Add(thisUser);
+                if(message.Likes == null)
+                {
+                    message.Likes = new List<Like>();
+                }
+                message.Likes.Add(new Like() { User = thisUser, Message = message });
                 context.SaveChanges();
             }
             return message;
         }
+        public bool FindUserLike(Message message, User user)
+        {
+            return context.Likes.Any(i => i.MessageId == message.Id && i.UserId == user.Id);
+                
+        }
 
         public Message FindMessageById(int id)
         {
-            return context.Messages.Include(c => c.User).Include(s => s.Section).First(i => i.Id == id);
+            return context.Messages.Include(c => c.User).Include(s => s.Section).Include(l => l.Likes).First(i => i.Id == id);
         }
 
         public List<Message> GetAllMessages()
         {
             return context.Messages.Include(u => u.User).OrderBy(c => c.User).ToList();
         }
+
+        
     }
 }

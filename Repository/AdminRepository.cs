@@ -19,7 +19,8 @@ namespace Forum.Repository
             allUsers = _users;
             allMessages = _allMessages;
         }
-        public User UpdateRole(int userId, int roleId)
+
+        public User UpdateRole(int userId, int roleId)//Изменить роль пользователя
         {
             User user = allUsers.FindUserById(userId);
             Role role = allUsers.GetRoleById(roleId);
@@ -27,11 +28,9 @@ namespace Forum.Repository
             context.SaveChanges();
             return user;
         }
-        public User Ban(User user, DateTime term)
+        public User Ban(User user)//Забанить пользователя
         {
             user.IsBanned = true;
-            user.TermOfBanned = term;
-            user.DateOfBan = DateTime.Now;
             context.SaveChanges();
             return user;
         }

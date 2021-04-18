@@ -29,9 +29,8 @@ namespace Forum.Models
         public Role Role { get; set; }
 
         public List<Message> Messages { get; set; }
+        public List<Like> Likes { get; set; }
 
         public bool IsBanned { get; set; }
-        public DateTime? DateOfBan { get; set; }
-        public DateTime? TermOfBanned { get; set; }
     }
 }

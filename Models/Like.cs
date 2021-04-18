@@ -8,12 +8,10 @@ namespace Forum.Models
     public class Like
     {
         public int Id { get; set; }
-        public List<User> Users { get; set; }
-        public int Volume 
-        { get
-            {
-                return Users.Count;
-            }
-        }
+
+        public int UserId { get; set; }
+        public User User { get; set; }
+        public int MessageId { get; set; }
+        public Message Message { get; set; }
     }
 }

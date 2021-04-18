@@ -14,7 +14,6 @@ namespace Forum.Controllers
     {
         private readonly IAllSections allSections;
         private readonly IAnswer allAnswers;
-        private readonly IUsers allUsers;
         public SectionController(IAllSections _allSections, IAnswer _answer)
         {
             allSections = _allSections;

@@ -33,6 +33,7 @@ namespace Forum.Controllers
             allMessages.CreateMessage(user, section, text);
             return Redirect($"~/Section/Section/{section.Id}");
         }
+        [Authorize]
         public IActionResult Like(int id)
         {
             Message message = allMessages.Like(id, int.Parse(User.Identity.Name));

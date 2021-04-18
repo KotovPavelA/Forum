@@ -9,6 +9,6 @@ namespace Forum.Interfaces
     public interface IAnswer
     {
         QSectionAnswer FindAnswerById(int id);
-        int AddVoteToAnswer(int id);
+        int AddVoteToAnswer(int id); //Метод для голосования в опросниках
     }
 }

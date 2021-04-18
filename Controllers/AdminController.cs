@@ -45,9 +45,9 @@ namespace Forum.Controllers
             return Redirect("~/Admin/Index");
         }
 
-        public IActionResult Ban(User user, DateTime term)
+        public IActionResult Ban(User user)
         {
-            adminFunc.Ban(user, term);
+            adminFunc.Ban(user);
             return Redirect("~/Admin/Index");
         }
 

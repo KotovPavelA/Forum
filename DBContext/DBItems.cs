@@ -8,9 +8,10 @@ namespace Forum.DBContext
 {
     public class DBItems
     {
-        public static void Initial(ApplicationContext context)
+        public static void Initial(ApplicationContext context) 
         {
-            
+            //Инициализация начальных объектов и добавление в базу данных
+
             Role adminRole = new Role()
             {
                 Name = "Admin",
@@ -23,6 +24,8 @@ namespace Forum.DBContext
             {
                 Name = "User"
             };
+
+
             User adam = new User() 
             {
                 Name = "Adam",
@@ -94,9 +97,10 @@ namespace Forum.DBContext
                         User = adam,
                         Text = "Люблю животных",
                         Section = section,
-                        Likes = new Like() 
-                        { 
-                            Users = new List<User>() { adam, veronica },
+                        Likes = new List<Like>()
+                        {
+                            new Like(){User = veronica},
+                            new Like(){User = adam}
                         },
                         Date = DateTime.Now,
                     },
@@ -105,20 +109,22 @@ namespace Forum.DBContext
                         User = veronica,
                         Text = "Посмотрите старое кино",
                         Section = msection,
-                        Likes = new Like()
+                        Likes = new List<Like>()
                         {
-                            Users = new List<User>() { adam, veronica },
+                            new Like(){User = veronica},
+                            new Like(){User = adam}
                         },
                         Date = DateTime.Now
                     },
                     new Message()
                     {
                         User = garry,
-                        Text = "На зоне по другому никак, ауф",
+                        Text = "На зоне по другому никак",
                         Section = qsection,
-                        Date = DateTime.Now
+                        Date = DateTime.Now,
+                        Likes = new List<Like>()
                     }
-                    );
+                    );;
 
             }
             

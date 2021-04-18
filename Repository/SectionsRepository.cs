@@ -39,6 +39,7 @@ namespace Forum.Repository
            {
                 section.Messages = context.Messages
                 .Include(u => u.User)
+                .Include(l => l.Likes)
                 .Where(s => s.SectionId == section.Id)
                 .OrderBy(d => d.Date).ToList();//Встраиваем те же самые сообщения, но отсортированные по дате
                 return section;

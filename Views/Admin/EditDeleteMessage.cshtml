@@ -2,7 +2,7 @@
 
 @foreach (Message item in Model.Messages)
 {
-
+    <hr />
     <blockquote class="blockquote">
         <p class="mb-0">@item.Text</p>
         <footer class="blockquote-footer">@item.User.Nickname</footer>
@@ -14,6 +14,7 @@
     </blockquote>
     <a asp-action="DeleteMessage" asp-controller="Admin" asp-route-id="@item.Id">Удалить собщение</a>
     <a asp-action="EditMessage" asp-controller="Admin" asp-route-id="@item.Id">Редактировать сообщение</a>
+    <hr/>
 
 
 }

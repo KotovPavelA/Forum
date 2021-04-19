@@ -69,6 +69,7 @@ namespace Forum.Repository
         public bool EditMessage(Message message, string text)
         {
             message.Text = text;
+            context.SaveChanges();
             return true;
 
         }

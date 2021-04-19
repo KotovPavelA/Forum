@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Forum.Controllers
 {
+    [Authorize]
     public class MessageController : Controller
     {
         private readonly IAllSections allSections;
@@ -23,7 +24,6 @@ namespace Forum.Controllers
             allUsers = _allUsers;
         }
 
-        [Authorize]
         public IActionResult CreateMessage(int id, string text)
         {
             
@@ -33,7 +33,7 @@ namespace Forum.Controllers
             allMessages.CreateMessage(user, section, text);
             return Redirect($"~/Section/Section/{section.Id}");
         }
-        [Authorize]
+
         public IActionResult Like(int id)
         {
             Message message = allMessages.Like(id, int.Parse(User.Identity.Name));

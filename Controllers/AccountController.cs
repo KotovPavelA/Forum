@@ -85,6 +85,7 @@ namespace Forum.Controllers
             
             return View(model);
         }
+
         private async Task Authenticate(User user)
         {
             var claims = new List<Claim>

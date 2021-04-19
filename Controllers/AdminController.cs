@@ -1,6 +1,7 @@
 ﻿using Forum.Interfaces;
 using Forum.Models;
 using Forum.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Forum.Controllers
 {
-
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly IAdmin adminFunc;
@@ -84,9 +85,9 @@ namespace Forum.Controllers
             };
             return View(model);
         }
-        public IActionResult DeleteMessage(int messageId)
+        public IActionResult DeleteMessage(int id)
         {
-            adminFunc.DeleteMessage(messageId);
+            adminFunc.DeleteMessage(id);
             return Redirect("~/Admin/EditDeleteMessage");
         }
         [HttpGet]
